@@ -123,16 +123,14 @@ public class LegacyIdFactory
    *
    * @param tenantId    The tenant ID of the pod where this event originated.
    * @param typeName          The type of the MaestroPayload.
-   * @param fromPod           The originating pod id.
    * @param messageId         The message ID.
    * @param threadId          The thread ID.
    * @return            The 2.0 object ID for the mirror of the given ID.
    * @throws NullPointerException if any parameter is null.
    */
-  public Hash maestroId(String tenantId, String typeName, Integer fromPod, byte[] messageId, @Nullable byte[] threadId)
+  public Hash maestroId(String tenantId, String typeName, byte[] messageId, @Nullable byte[] threadId)
   {
     return HashProvider.getCompositeHashOf(LegacyId.MAESTRO_MESSAGE_ID, tenantId, typeName,
-        fromPod == null ? 0 : fromPod,
         messageId, threadId == null ? new byte[0] : threadId);
   }
 
