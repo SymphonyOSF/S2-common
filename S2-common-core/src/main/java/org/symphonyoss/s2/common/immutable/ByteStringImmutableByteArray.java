@@ -23,9 +23,12 @@
 
 package org.symphonyoss.s2.common.immutable;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -53,6 +56,11 @@ class ByteStringImmutableByteArray extends ImmutableByteArray
     return new ByteStringReader(bytes_, charset);
   }
 
+  @Override
+  public void write(OutputStream out) throws IOException
+  {
+    bytes_.writeTo(out);
+  }
 
   @Override
   public String toString()
@@ -79,5 +87,17 @@ class ByteStringImmutableByteArray extends ImmutableByteArray
       base64Value_ = Base64.encodeBase64String(toString().getBytes()); // double copy is unavoidable, may as well set string value in the process
     
     return base64Value_;
+  }
+
+  @Override
+  public Iterator<Byte> iterator()
+  {
+    return bytes_.iterator();
+  }
+
+  @Override
+  public byte[] toByteArray()
+  {
+    return bytes_.toByteArray();
   }
 }

@@ -23,6 +23,8 @@
 
 package org.symphonyoss.s2.common.immutable;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
@@ -51,7 +53,7 @@ import com.google.protobuf.ByteString;
  *
  */
 @Immutable
-public abstract class ImmutableByteArray
+public abstract class ImmutableByteArray implements Iterable<Byte>
 {
   /**
    * Return an ImmutableByteArray containing the given data.
@@ -65,6 +67,20 @@ public abstract class ImmutableByteArray
   public static ImmutableByteArray newInstance(byte[] bytes)
   {
     return new ArrayBackedImmutableByteArray(bytes);
+  }
+  
+  /**
+   * Return an ImmutableByteArray containing the given data.
+   * 
+   * This operation involves a defensive copy.
+   * 
+   * @param string The data for the ImmutableByteArray.
+   * 
+   * @return An ImmutableByteArray containing the given data.
+   */
+  public static ImmutableByteArray newInstance(String string)
+  {
+    return new ArrayBackedImmutableByteArray(string.getBytes(StandardCharsets.UTF_8));
   }
   
   /**
@@ -111,6 +127,15 @@ public abstract class ImmutableByteArray
   }
   
   /**
+   * Write the contents of this ByteArray to the given OutputStream.
+   * 
+   * @param out and OutputStream to which the contents of this ByteArray are to be written.
+   * 
+   * @throws IOException If there is an IO error.
+   */
+  public abstract void write(OutputStream out) throws IOException;
+  
+  /**
    * Create a Reader instance with the given character set.
    * 
    * @param charset The character set with which the byte data should be interpreted.
@@ -140,4 +165,11 @@ public abstract class ImmutableByteArray
    * @return The contents of the byte array as a Base64 (standard encoding) String.
    */
   public abstract String toBase64String();
+  
+  /**
+   * Return a copy of the contents as a byte array.
+   * 
+   * @return A copy of the contents.
+   */
+  public abstract byte[] toByteArray();
 }

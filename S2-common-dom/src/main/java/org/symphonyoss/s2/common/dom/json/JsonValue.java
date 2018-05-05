@@ -30,17 +30,22 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import org.symphonyoss.s2.common.dom.DomWriter;
+import org.symphonyoss.s2.common.immutable.ImmutableByteArray;
 
 @Immutable
 public class JsonValue<T,N extends JsonValue<T,N>> implements IImmutableJsonDomNode
 {
-  private final @Nonnull T      value_;
-  private final @Nonnull String quotedValue_;
+  private final @Nonnull T                  value_;
+  private final @Nonnull String             quotedValue_;
+  private final @Nonnull String             asString_;
+  private final @Nonnull ImmutableByteArray asBytes_;
   
   public JsonValue(@Nonnull T value, @Nonnull String quotedValue)
   {
     value_ = value;
     quotedValue_ = quotedValue;
+    asString_ =value_.toString();
+    asBytes_ = ImmutableByteArray.newInstance(asString_);
   }
 
   @Override
@@ -68,9 +73,15 @@ public class JsonValue<T,N extends JsonValue<T,N>> implements IImmutableJsonDomN
   }
   
   @Override
+  public @Nonnull ImmutableByteArray serialize()
+  {
+    return asBytes_;
+  }
+  
+  @Override
   public @Nonnull String toString()
   {
-    return value_.toString();
+    return asString_;
   }
   
   @Override

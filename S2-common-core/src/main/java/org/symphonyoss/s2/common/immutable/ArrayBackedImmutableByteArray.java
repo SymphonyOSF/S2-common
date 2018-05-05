@@ -23,9 +23,13 @@
 
 package org.symphonyoss.s2.common.immutable;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.Iterator;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -49,6 +53,12 @@ class ArrayBackedImmutableByteArray extends ImmutableByteArray
   public Reader createReader(Charset charset)
   {
     return new ByteArrayReader(bytes_, charset);
+  }
+
+  @Override
+  public void write(OutputStream out) throws IOException
+  {
+    out.write(bytes_);
   }
 
   @Override
@@ -76,5 +86,34 @@ class ArrayBackedImmutableByteArray extends ImmutableByteArray
       base64Value_ = Base64.encodeBase64String(bytes_);
     
     return base64Value_;
+  }
+
+  @Override
+  public Iterator<Byte> iterator()
+  {
+    return new ByteIterator();
+  }
+  
+  private class ByteIterator implements Iterator<Byte>
+  {
+    private int   index_ = 0;
+    
+    @Override
+    public boolean hasNext()
+    {
+      return index_ < bytes_.length;
+    }
+
+    @Override
+    public Byte next()
+    {
+      return bytes_[index_++];
+    }
+  }
+
+  @Override
+  public byte[] toByteArray()
+  {
+    return Arrays.copyOf(bytes_, bytes_.length);
   }
 }

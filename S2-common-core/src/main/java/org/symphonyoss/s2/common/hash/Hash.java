@@ -24,7 +24,6 @@
 package org.symphonyoss.s2.common.hash;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import org.apache.commons.codec.binary.Base64;
@@ -418,15 +417,6 @@ public class Hash implements Comparable<Hash>
   public int compareTo(Hash o)
   {
     return hashStringUrlSafeBase64_.compareTo(o.toString());
-  }
-
-  @Deprecated
-  public static @Nullable Hash newNullableInstance(ByteString byteString) throws InvalidValueException
-  {
-    if(byteString.isEmpty())
-      return null;
-    
-    return new Hash(byteString);
   }
   
   /**
