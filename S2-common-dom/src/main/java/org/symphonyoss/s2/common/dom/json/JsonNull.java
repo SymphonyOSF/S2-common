@@ -51,6 +51,12 @@ public class JsonNull implements IImmutableJsonDomNode
   }
 
   @Override
+  public JsonNull newMutableCopy()
+  {
+    return this;
+  }
+
+  @Override
   public JsonNull writeTo(DomWriter writer, @Nullable String terminator) throws IOException
   {
     writer.writeItem("null", terminator);

@@ -23,7 +23,9 @@
 
 package org.symphonyoss.s2.common.immutable;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
@@ -36,6 +38,8 @@ import javax.annotation.concurrent.Immutable;
 import org.apache.commons.codec.binary.Base64;
 import org.symphonyoss.s2.common.reader.ByteArrayReader;
 
+import com.google.protobuf.ByteString;
+
 @Immutable
 class ArrayBackedImmutableByteArray extends ImmutableByteArray
 {
@@ -43,16 +47,29 @@ class ArrayBackedImmutableByteArray extends ImmutableByteArray
   private String       stringValue_;
   private String       base64UrlSafeValue_;
   private String       base64Value_;
+  private ByteString   byteStringValue_;
 
   ArrayBackedImmutableByteArray(byte[] bytes)
   {
     bytes_ = bytes;
   }
 
+  ArrayBackedImmutableByteArray(String stringValue)
+  {
+    stringValue_ = stringValue;
+    bytes_ = stringValue_.getBytes(StandardCharsets.UTF_8);
+  }
+
   @Override
   public Reader createReader(Charset charset)
   {
     return new ByteArrayReader(bytes_, charset);
+  }
+
+  @Override
+  public InputStream getInputStream()
+  {
+    return new ByteArrayInputStream(bytes_);
   }
 
   @Override
@@ -115,5 +132,26 @@ class ArrayBackedImmutableByteArray extends ImmutableByteArray
   public byte[] toByteArray()
   {
     return Arrays.copyOf(bytes_, bytes_.length);
+  }
+  
+  @Override
+  public ByteString toByteString()
+  {
+    if(byteStringValue_ == null)
+      byteStringValue_ = ByteString.copyFrom(bytes_);
+    
+    return byteStringValue_;
+  }
+  
+  @Override
+  public int length()
+  {
+    return bytes_.length;
+  }
+
+  @Override
+  public byte byteAt(int index)
+  {
+    return bytes_[index];
   }
 }

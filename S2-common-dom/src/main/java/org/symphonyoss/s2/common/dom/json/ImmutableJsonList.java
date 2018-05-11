@@ -95,6 +95,17 @@ public class ImmutableJsonList extends JsonList<IImmutableJsonDomNode> implement
   }
   
   @Override
+  public MutableJsonList newMutableCopy()
+  {
+    MutableJsonList result = new MutableJsonList();
+    
+    for(IJsonDomNode child : children_)
+      result.add(child.newMutableCopy());
+    
+    return result;
+  }
+
+  @Override
   public @Nonnull ImmutableByteArray serialize()
   {
     return asBytes_;

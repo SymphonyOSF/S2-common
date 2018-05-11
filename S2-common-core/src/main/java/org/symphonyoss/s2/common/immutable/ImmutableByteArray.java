@@ -24,6 +24,7 @@
 package org.symphonyoss.s2.common.immutable;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
@@ -56,6 +57,11 @@ import com.google.protobuf.ByteString;
 public abstract class ImmutableByteArray implements Iterable<Byte>
 {
   /**
+   * An empty (zero length) array of bytes.
+   */
+  public static final ImmutableByteArray  EMPTY = new ArrayBackedImmutableByteArray(new byte[0]);
+  
+  /**
    * Return an ImmutableByteArray containing the given data.
    * 
    * This operation involves a defensive copy.
@@ -80,7 +86,7 @@ public abstract class ImmutableByteArray implements Iterable<Byte>
    */
   public static ImmutableByteArray newInstance(String string)
   {
-    return new ArrayBackedImmutableByteArray(string.getBytes(StandardCharsets.UTF_8));
+    return new ArrayBackedImmutableByteArray(string);
   }
   
   /**
@@ -167,9 +173,40 @@ public abstract class ImmutableByteArray implements Iterable<Byte>
   public abstract String toBase64String();
   
   /**
+   * Return the contents of the byte array as a ByteString.
+   * 
+   * @return The contents of the byte array as a ByteString.
+   */
+  public abstract ByteString toByteString();
+  
+  /**
    * Return a copy of the contents as a byte array.
    * 
    * @return A copy of the contents.
    */
   public abstract byte[] toByteArray();
+
+  /**
+   * Create an InputStream for the contents of this ImmutableByteArray.
+   * 
+   * @return An InputStream for the contents of this ImmutableByteArray.
+   */
+  public abstract InputStream getInputStream();
+
+  /**
+   * Return the number of bytes in this ImmutableByteArray.
+   * 
+   * @return The number of bytes in this ImmutableByteArray.
+   */
+  public abstract int length();
+  
+  /**
+   * Return the byte at the given index.
+   * 
+   * @param index An index.
+   * 
+   * @return The byte at that index.
+   * @throws IndexOutOfBoundsException if the index is negative or greater or equal to length()
+   */
+  public abstract byte byteAt(int index);
 }

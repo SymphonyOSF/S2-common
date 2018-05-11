@@ -92,6 +92,17 @@ public class ImmutableJsonObject extends JsonObject<IImmutableJsonDomNode> imple
   {
     return this;
   }
+  
+  @Override
+  public MutableJsonObject newMutableCopy()
+  {
+    MutableJsonObject result = new MutableJsonObject();
+    
+    for(String name : names_)
+      result.add(name, children_.get(name).newMutableCopy());
+    
+    return result;
+  }
 
   @Override
   public int getMaxNameLen()

@@ -21,48 +21,11 @@
  * under the License.
  */
 
-package org.symphonyoss.s2.common.dom.json;
+package org.symphonyoss.s2.common.dom;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+import org.symphonyoss.s2.common.immutable.ImmutableByteArray;
 
-public class MutableJsonList extends MutableJsonArray<MutableJsonList>
+public interface IImmutableByteArrayProvider
 {
-  private LinkedList<IJsonDomNode> children_    = new LinkedList<>();
-  
-  public MutableJsonList add(IJsonDomNode child)
-  {
-    children_.add(child);
-    
-    return this;
-  }
-
-  @Override
-  public boolean isEmpty()
-  {
-    return children_.isEmpty();
-  }
-
-  @Override
-  public Iterator<IJsonDomNode> iterator()
-  {
-    return children_.iterator();
-  }
-
-  @Override
-  public ImmutableJsonList immutify()
-  {
-    return new ImmutableJsonList(children_);
-  }
-
-  @Override
-  public MutableJsonList newMutableCopy()
-  {
-    MutableJsonList result = new MutableJsonList();
-    
-    for(IJsonDomNode child : children_)
-      result.add(child.newMutableCopy());
-    
-    return result;
-  }
+  ImmutableByteArray asImmutableByteArray();
 }

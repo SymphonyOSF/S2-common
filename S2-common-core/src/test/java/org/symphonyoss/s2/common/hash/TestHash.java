@@ -49,7 +49,7 @@ public class TestHash
         (byte)0x1, (byte)0x1};
     
     Hash hash = Hash.ofHexString(hexStringValue);
-    byte[] result = hash.toBytes();
+    byte[] result = hash.toImmutableByteArray().toByteArray();
     
 //    System.out.println(hash.toString());
 //    System.out.println(hash.toStringBase64());

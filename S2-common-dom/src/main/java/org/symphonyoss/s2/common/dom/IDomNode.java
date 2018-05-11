@@ -27,6 +27,8 @@ import java.io.IOException;
 
 import javax.annotation.Nullable;
 
+import org.symphonyoss.s2.common.dom.json.IJsonDomNode;
+
 /**
  * A node in an abstract DOM tree, which may or may not be mutable.
  * 
@@ -41,6 +43,13 @@ public interface IDomNode
    * @return an immutable version of this node.
    */
   IImmutableDomNode immutify();
+  
+  /**
+   * Return a mutable version of this node.
+   * 
+   * @return a mutable version of this node.
+   */
+  IJsonDomNode newMutableCopy();
   
   /**
    * Write the serialized form of this node to the given writer.

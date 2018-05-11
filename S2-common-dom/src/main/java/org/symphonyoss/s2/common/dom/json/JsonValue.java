@@ -54,6 +54,12 @@ public class JsonValue<T,N extends JsonValue<T,N>> implements IImmutableJsonDomN
     return this;
   }
 
+  @Override
+  public JsonValue<T, N> newMutableCopy()
+  {
+    return this;
+  }
+
   public @Nonnull T getValue()
   {
     return value_;

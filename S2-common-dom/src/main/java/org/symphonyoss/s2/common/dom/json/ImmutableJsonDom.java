@@ -82,6 +82,17 @@ public class ImmutableJsonDom extends JsonDom<IImmutableJsonDomNode> implements 
   }
   
   @Override
+  public MutableJsonDom newMutableCopy()
+  {
+    MutableJsonDom result = new MutableJsonDom();
+    
+    for(IImmutableJsonDomNode child : children_)
+      result.add(child.newMutableCopy());
+    
+    return result;
+  }
+
+  @Override
   public int size()
   {
     return children_.size();

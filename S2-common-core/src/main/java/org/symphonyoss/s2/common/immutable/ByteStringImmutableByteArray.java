@@ -24,6 +24,7 @@
 package org.symphonyoss.s2.common.immutable;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
@@ -33,6 +34,7 @@ import java.util.Iterator;
 import javax.annotation.concurrent.Immutable;
 
 import org.apache.commons.codec.binary.Base64;
+import org.symphonyoss.s2.common.reader.ByteStringInputStream;
 import org.symphonyoss.s2.common.reader.ByteStringReader;
 
 import com.google.protobuf.ByteString;
@@ -54,6 +56,12 @@ class ByteStringImmutableByteArray extends ImmutableByteArray
   public Reader createReader(Charset charset)
   {
     return new ByteStringReader(bytes_, charset);
+  }
+
+  @Override
+  public InputStream getInputStream()
+  {
+    return new ByteStringInputStream(bytes_);
   }
 
   @Override
@@ -99,5 +107,23 @@ class ByteStringImmutableByteArray extends ImmutableByteArray
   public byte[] toByteArray()
   {
     return bytes_.toByteArray();
+  }
+
+  @Override
+  public ByteString toByteString()
+  {
+    return bytes_;
+  }
+
+  @Override
+  public int length()
+  {
+    return bytes_.size();
+  }
+
+  @Override
+  public byte byteAt(int index)
+  {
+    return bytes_.byteAt(index);
   }
 }

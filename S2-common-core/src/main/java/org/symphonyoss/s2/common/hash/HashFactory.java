@@ -133,7 +133,8 @@ public class HashFactory
         if(Hash.NIL_HASH.equals(part))
           throw new CodingFault("NIL_HASH (null value) included as element of composite hash");
         
-        hashFunction_.update(((Hash) part).toBytes());
+        for(byte b : ((Hash) part).toImmutableByteArray())
+          hashFunction_.update(b);
       }
       else if(part instanceof byte[])
       {
