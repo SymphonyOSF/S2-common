@@ -126,4 +126,11 @@ class ByteStringImmutableByteArray extends ImmutableByteArray
   {
     return bytes_.byteAt(index);
   }
+
+  @Override
+  public void arraycopy(int index, byte[] dest, int destPos, int length)
+  {
+    for(int i=0 ; i<length ; i++)
+      dest[destPos++] = bytes_.byteAt(index++);
+  }
 }

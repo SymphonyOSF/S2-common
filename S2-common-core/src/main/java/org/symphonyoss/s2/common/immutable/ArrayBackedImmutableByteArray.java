@@ -154,4 +154,10 @@ class ArrayBackedImmutableByteArray extends ImmutableByteArray
   {
     return bytes_[index];
   }
+
+  @Override
+  public void arraycopy(int index, byte[] dest, int destPos, int length)
+  {
+    System.arraycopy(bytes_, index, dest, destPos, length);
+  }
 }

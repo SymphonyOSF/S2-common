@@ -209,4 +209,8 @@ public abstract class ImmutableByteArray implements Iterable<Byte>
    * @throws IndexOutOfBoundsException if the index is negative or greater or equal to length()
    */
   public abstract byte byteAt(int index);
+  
+
+
+  public abstract void arraycopy(int index, byte[] iv, int i, int length);
 }
