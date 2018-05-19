@@ -70,7 +70,7 @@ public abstract class ImmutableByteArray implements Iterable<Byte>
    * 
    * @return An ImmutableByteArray containing the given data.
    */
-  public static ImmutableByteArray newInstance(byte[] bytes)
+  public static ImmutableByteArray newInstance(byte[] ...bytes)
   {
     return new ArrayBackedImmutableByteArray(bytes);
   }
@@ -213,4 +213,40 @@ public abstract class ImmutableByteArray implements Iterable<Byte>
 
 
   public abstract void arraycopy(int index, byte[] iv, int i, int length);
+  
+
+
+  @Override
+  public int hashCode()
+  {
+    int   h=0;
+    
+    for(int i=0 ; i<length() ; i++)
+    {
+      h = 31 * h + byteAt(i);
+    }
+    return h;
+  }
+
+  @Override
+  public boolean equals(Object obj)
+  {
+    if(obj instanceof ImmutableByteArray)
+    {
+      ImmutableByteArray other = (ImmutableByteArray) obj;
+      
+      if(other.length() == length())
+      {
+        for(int i=0 ; i<length() ; i++)
+        {
+          if(byteAt(i) != other.byteAt(i))
+          {
+            return false;
+          }
+        }
+        return true;
+      }
+    }
+    return false;
+  }
 }

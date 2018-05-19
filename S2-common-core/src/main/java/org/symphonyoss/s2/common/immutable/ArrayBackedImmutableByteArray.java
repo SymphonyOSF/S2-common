@@ -49,9 +49,24 @@ class ArrayBackedImmutableByteArray extends ImmutableByteArray
   private String       base64Value_;
   private ByteString   byteStringValue_;
 
-  ArrayBackedImmutableByteArray(byte[] bytes)
+  ArrayBackedImmutableByteArray(byte[] ...bytes)
   {
-    bytes_ = bytes;
+    int l=0;
+    
+    for(byte[] b : bytes)
+      l += b.length;
+    
+    int i=0;
+    
+    bytes_ = new byte[l];
+    
+    for(byte[] b : bytes)
+    {
+      for(byte bb : b)
+      {
+        bytes_[i++] = bb;
+      }
+    }
   }
 
   ArrayBackedImmutableByteArray(String stringValue)
