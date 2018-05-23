@@ -381,6 +381,16 @@ public class Hash implements Comparable<Hash>
   {
     return hashBytes_;
   }
+  
+  /**
+   * Return the integer hash type of this hash.
+   * 
+   * @return The integer hash type of this hash.
+   */
+  public int getTypeId()
+  {
+    return hashType_.getHashTypeId();
+  }
 
   @Override
   public @Nonnull String toString()

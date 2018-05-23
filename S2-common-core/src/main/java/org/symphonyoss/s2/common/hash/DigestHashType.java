@@ -31,10 +31,10 @@ package org.symphonyoss.s2.common.hash;
  */
 public class DigestHashType extends HashType
 {
-  DigestHashType(final String digestId, int byteLen, byte[] typeIdAsBytes,
+  DigestHashType(int hashTypeId, final String digestId, int byteLen, byte[] typeIdAsBytes,
       String typeIdAndLengthAsString)
   {
-    super(new AbstractHashFunctionFactory()
+    super(hashTypeId, new AbstractHashFunctionFactory()
     {
       @Override
       AbstractHashFunction createHashFunction()

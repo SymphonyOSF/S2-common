@@ -23,6 +23,8 @@
 
 package org.symphonyoss.s2.common.hash;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -34,6 +36,18 @@ import junit.framework.AssertionFailedError;
 
 public class TestHash
 {
+  @Test
+  public void testTypeId() throws InvalidValueException
+  {
+    for(int i=1 ; i<3 ; i++)
+    {
+      Hash hash = HashProvider.getHashOf(i, "Hello".getBytes());
+      
+      assertEquals(i, hash.getTypeId());
+    }
+  }
+  
+  
   @Test
   public void testCompositeHash() throws InvalidValueException
   {
