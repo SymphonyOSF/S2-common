@@ -25,6 +25,15 @@ package org.symphonyoss.s2.common.http;
 
 import javax.servlet.Servlet;
 
+/**
+ * 
+ *
+ * @deprecated Moved to org.symphonyoss.s2.fugue.http
+ * 
+ * @author Bruce Skingle
+ *
+ */
+@Deprecated
 public interface IServletContainer
 {
   IServletContainer addServlet(String path, Servlet servlet);
