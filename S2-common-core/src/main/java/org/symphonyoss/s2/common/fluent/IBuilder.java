@@ -23,8 +23,6 @@
 
 package org.symphonyoss.s2.common.fluent;
 
-import org.symphonyoss.s2.common.fault.FaultAccumulator;
-
 /**
  * A builder, the builder itself is fluent but the built type is not.
  * 
@@ -41,33 +39,4 @@ public interface IBuilder<T,B> extends IFluent<T>
    * @return a newly built instance of the built type.
    */
   public B build();
-
-  /**
-   * Call the given create listener with the built object when it is created.
-   * 
-   * @param listener A listener to be passed the built object.
-   * 
-   * @return This (fluent method).
-   */
-  T withCreateListener(IListener<B> listener);
-
-  T withValidateListener(IListener<B> listener);
-  
-//  /**
-//   * Validate the settings of the builder, should be called from the build() method of
-//   * concrete implementations.
-//   * 
-//   * sub-classes which override this method should call super.valudate(faultAccumulator);
-//   * 
-//   * @param faultAccumulator An accumulator for faults. 
-//   */
-//  void validate(FaultAccumulator faultAccumulator);
-//
-//  /**
-//   * Validate the settings of the builder, should be called from the build() method of
-//   * concrete implementations.
-//   * 
-//   * The implementation of this method is final and it calls validate(FaultAccumulator faultAccumulator)
-//   */
-//  void validate();
 }
