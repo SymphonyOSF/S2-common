@@ -39,7 +39,7 @@ public abstract class BaseAbstractBuilder<T extends IBuilder<T,B>, B> extends Fl
   /**
    * Constructor.
    * 
-   * @param type The Class<T>.
+   * @param type The concrete type of this builder.
    */
   public BaseAbstractBuilder(Class<T> type)
   {
