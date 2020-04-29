@@ -31,9 +31,14 @@ To make review of PRs easier, please:
  * For documentation contributions, follow the general structure, language, and tone of the existing docs.
  * Keep PRs small and cohesive - if you have multiple contributions, please submit them as independent PRs.
  * Reference issue #s if your PR has anything to do with an issue (even if it doesn't address it).
- * Minimize non-functional changes (e.g. whitespace shenanigans).
+ * Minimize non-functional changes (e.g. whitespace).
  * Ensure all new files include a header comment block containing the [Apache License v2.0 and your copyright information](http://www.apache.org/licenses/LICENSE-2.0#apply).
  * If necessary (e.g. due to 3rd party dependency licensing requirements), update the NOTICE file with any required attribution or other notices
  * If your contribution includes source code for any Category B-licensed dependencies, add an appropriate notice to this CONTRIBUTING file
  
- 
+## Commit and PR Messages
+
+* **Reference issues, wiki pages, and pull requests liberally!**
+* Use the present tense ("Add feature" not "Added feature")
+* Use the imperative mood ("Move button left..." not "Moves button left...")
+* Limit the first line to 72 characters or less
