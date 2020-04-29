@@ -52,7 +52,7 @@ public class DomWriter extends DomConsumer<DomWriter> implements IDomWriterOrBui
   private DomWriter(Writer out, boolean doNotClose, boolean compactMode, boolean canonicalMode)
   {
     super(compactMode, canonicalMode);
-    out_ = compactMode ? new CompactWriter(out) : new IndentedWriter(out);
+    out_ = compactMode ? new CompactWriter(out) : new IndentedWriter(out, canonicalMode);
     doNotClose_ = doNotClose;
   }
   
@@ -224,11 +224,13 @@ public class DomWriter extends DomConsumer<DomWriter> implements IDomWriterOrBui
     out_.write(name);
     out_.write(closeQuote);
     
-    width = width - openQuote.length() - name.length() - closeQuote.length();
-    
-    while(width-- > 0)
-      out_.write(' ');
-    
+    if(!isCompactMode())
+    {
+      width = width - openQuote.length() - name.length() - closeQuote.length();
+      
+      while(width-- > 0)
+        out_.write(' ');
+    }
     return this;
   }
 }
@@ -334,7 +336,7 @@ class CompactWriter extends DomWriterProxy
 
 class IndentedWriter extends DomWriterProxy
 {
-  private static final char[]          NL     = System.getProperty("line.separator").toCharArray();
+  private final char[]          NL;  
 
   
   private int                 indent_      = 0;
@@ -344,8 +346,15 @@ class IndentedWriter extends DomWriterProxy
   public IndentedWriter(Writer out)
   {
     super(out);
+    NL = System.getProperty("line.separator").toCharArray();
   }
   
+  public IndentedWriter(Writer out, boolean canonicalMode)
+  {
+    super(out);
+    NL = new char[] {'\n'};
+  }
+
   @Override
   public void newline() throws IOException
   {
